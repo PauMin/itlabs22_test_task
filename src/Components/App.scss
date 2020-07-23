@@ -1,0 +1,11 @@
+@import "../variables";
+
+.App {
+  background-color: $app-background-color;
+  padding: $container-padding;
+  height: 100vh;
+
+  .Table {
+    margin-top: 85px;
+  }
+}
