@@ -3,7 +3,6 @@
 .Table {
   font-family: $font-family;
   font-size: $font-size;
-  display: inline-block;
   width: 595px;
   position: relative;
 
@@ -91,6 +90,29 @@
 
     &--delete {
       color: $red;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .Table {
+    margin: 0 auto;
+    display: block;
+    max-width: 100%;
+
+    &__head, &__body {
+      th, td {
+        padding-left: 0;
+        text-align: center;
+      }
+    }
+
+    &__action {
+      span {
+        &:first-child {
+          margin-right: 20px;
+        }
+      }
     }
   }
 }

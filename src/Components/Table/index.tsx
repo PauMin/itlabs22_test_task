@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './Table.scss';
+import { userType } from '../../Types/userType';
+import {TableProps} from '../../Props/TableProps';
+import {formService} from '../../Services/FormService';
+import {tableService} from '../../Services/TableService';
 
-const Table = () => {
+const Table = ({ tableIndex, data}: TableProps) => {
+    const [tableData, setTableData] = useState<userType[]>([]);
+
+    useEffect(() => {
+        setTableData(data);
+    }, [data]);
+
     return (
         <div className="Table">
             <div className="buttons">
-                <button className="button-copy">Copy table</button>
-                <span className="button-delete">
-                    <img src="btn_delete.svg" alt=""/>
-                </span>
+                <button className="button-copy" onClick={() => tableService.copyTable(tableIndex)}>Copy table</button>
+                {
+                    tableIndex !== 'master' &&
+                    <span className="button-delete" onClick={() => tableService.deleteTable(tableIndex)}>
+                        <img src="btn_delete.svg" alt=""/>
+                    </span>
+                }
             </div>
             <table>
                 <thead className="Table__head">
@@ -22,58 +35,24 @@ const Table = () => {
                 </tr>
                 </thead>
                 <tbody className="Table__body">
-                <tr>
-                    <td>Name</td>
-                    <td>Surname</td>
-                    <td>Age</td>
-                    <td>City</td>
-                    <td className="Table__action">
-                        <span className="Table__action--edit">Edit</span>
-                        <span className="Table__action--delete">Delete</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                { tableData.map((user: userType, index: number) => (
+                    <tr key={tableIndex + index}>
+                        <td>{user.name}</td>
+                        <td>{user.surname}</td>
+                        <td>{user.age}</td>
+                        <td>{user.city}</td>
+                        <td className="Table__action">
+                            <span className="Table__action--edit"
+                                  onClick={() => formService.sendToForm(user, tableIndex, index)}>
+                                Edit
+                            </span>
+                            <span className="Table__action--delete"
+                                  onClick={() => tableService.deleteRow(tableIndex, index)}>
+                                Delete
+                            </span>
+                        </td>
+                    </tr>
+                )) }
                 </tbody>
             </table>
         </div>

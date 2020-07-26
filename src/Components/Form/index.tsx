@@ -1,17 +1,74 @@
-import React from 'react';
+import React, { useState, useLayoutEffect  } from 'react';
 
 import './Form.scss';
+import Input from '../Input';
+import { userType } from '../../Types/userType';
+import {formService} from '../../Services/FormService';
+import {tableService} from '../../Services/TableService';
 
-const TableForm = () => {
+type fromTableType = {
+    tableIndex: string,
+    index: number
+};
+
+const Form = () => {
+    const initialState = {
+        name: '',
+        surname: '',
+        age: '',
+        city: '',
+    };
+    const fromTableInitial = {
+        tableIndex: 'master',
+        index: -1,
+    };
+
+    const [formData, setFormData] = useState<userType>(initialState);
+    const [fromTable, setFromTable] = useState<fromTableType>(fromTableInitial);
+
+    useLayoutEffect(() => {
+        // @ts-ignore
+        const subscription = formService.getForForm().subscribe(({user, tableIndex, index}) => {
+            setFormData(user);
+            setFromTable({ tableIndex, index });
+        });
+
+        return () => subscription.unsubscribe();
+    }, []);
+
+    const handleDataSubmit = () => {
+        tableService.submitToTable(formData, fromTable.tableIndex, fromTable.index);
+        setFormData(initialState);
+        setFromTable(fromTableInitial);
+    };
+
     return (
         <div className="TableForm">
-            <input type="text" placeholder="Name" className="TableForm__input"/>
-            <input type="text" placeholder="Surname" className="TableForm__input"/>
-            <input type="text" placeholder="Age" className="TableForm__input"/>
-            <input type="text" placeholder="City" className="TableForm__input"/>
-            <button className="TableForm__button">Add</button>
+            <Input type="text"
+                   placeholder="Name"
+                   value={formData.name}
+                   className="TableForm__input"
+                   onChange={name => setFormData({...formData, name})}/>
+            <Input type="text"
+                   placeholder="Surname"
+                   value={formData.surname}
+                   className="TableForm__input"
+                   onChange={surname => setFormData({...formData, surname})}/>
+            <Input type="text"
+                   placeholder="Age"
+                   value={formData.age}
+                   className="TableForm__input"
+                   onChange={age => setFormData({...formData, age})}/>
+            <Input type="text"
+                   placeholder="City"
+                   value={formData.city}
+                   className="TableForm__input"
+                   onChange={city => setFormData({...formData, city})}/>
+            <button className="TableForm__button" onClick={() => handleDataSubmit()}>
+                { fromTable.index >= 0 ? 'Edit' : 'Add' }
+            </button>
         </div>
     )
 };
 
-export default TableForm;
+export default Form;

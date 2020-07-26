@@ -3,9 +3,23 @@
 .App {
   background-color: $app-background-color;
   padding: $container-padding;
-  height: 100vh;
+  min-height: 100vh;
 
   .Table {
     margin-top: 85px;
+
+    &:last-child {
+      margin-bottom: 85px;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .App {
+    padding: $container-padding 0;
+
+    .TableForm {
+      margin: 0 auto;
+    }
   }
 }
