@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './App.scss';
 import Form from './Form';
 import Table from './Table';
-import {tableType} from '../Types/tableType';
+import {tableType} from '../Types/TableType';
 import {tableService} from '../Services/TableService';
 
 const App = () => {

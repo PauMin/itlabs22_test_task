@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect  } from 'react';
 
 import './Form.scss';
 import Input from '../Input';
-import { userType } from '../../Types/userType';
+import { userType } from '../../Types/UserType';
 import {formService} from '../../Services/FormService';
 import {tableService} from '../../Services/TableService';
 

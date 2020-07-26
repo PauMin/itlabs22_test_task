@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import {userType} from "../Types/userType";
+import {userType} from "../Types/UserType";
 
 const subject = new Subject();
 

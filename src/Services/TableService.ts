@@ -1,8 +1,8 @@
 import { Subject } from 'rxjs';
 
 import uuid from '../Helpers/uuid';
-import { userType } from '../Types/userType';
-import { tableType } from '../Types/tableType';
+import { userType } from '../Types/UserType';
+import { tableType } from '../Types/TableType';
 
 const subject = new Subject();
 const store:tableType[] = [

@@ -1,4 +1,4 @@
-import {userType} from "./userType";
+import {userType} from "./UserType";
 
 export type tableType = {
     index: string,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import './Table.scss';
-import { userType } from '../../Types/userType';
+import { userType } from '../../Types/UserType';
 import {TableProps} from '../../Props/TableProps';
 import {formService} from '../../Services/FormService';
 import {tableService} from '../../Services/TableService';

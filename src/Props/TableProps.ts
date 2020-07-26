@@ -1,4 +1,4 @@
-import {userType} from "../Types/userType";
+import {userType} from "../Types/UserType";
 
 export interface TableProps {
     data: userType[];
